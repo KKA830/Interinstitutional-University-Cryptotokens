@@ -1,4 +1,7 @@
 # EthereumReactJSTemplate
+
+> Repositori original: EthereumReactJSTemplate-Hardhat
+
 Plantilla per compilar i desplegar un Smart Contract desenvolupat amb Solidity a Ethereum, i accedir-hi mitjançant una aplicació desenvolupada amb una aplicació web amb interfície web ReactJS. Es pot executar a NodeJS o Docker.
 
 ## Execution with NodeJS
