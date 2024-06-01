@@ -1,11 +1,10 @@
 const path = require("path");
 const fs = require("fs-extra"); // fs with extra functions
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const Web3 = require('web3');
+const { Web3 } = require('web3');
 
-const compiledContractPath = './src/ethereum/build/EDeliveryFactory.json';
+const compiledContractPath = './src/ethereum/build/UVS_updated.json';
 const compiledContract = require(compiledContractPath);
-
 // Mnemonic from a test account and an Infura provider
 const provider = new HDWalletProvider(
   'tragic square news business dad cricket nurse athlete tide split about ring',
@@ -23,7 +22,6 @@ const deploy = async () => {
   const result = await new web3.eth.Contract(compiledContract.abi)
     .deploy({ data: compiledContract.evm.bytecode.object, arguments: [] })
     .send({ from: accounts[0], gas: '6000000' });
-
   // fs.writeFileSync('./CONTRACTADDRESS', result.options.address);
   compiledContract.address = result.options.address;
 

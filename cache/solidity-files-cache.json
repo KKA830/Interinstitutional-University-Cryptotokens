@@ -1,9 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "C:\\Users\\Usuario\\Documents\\UIB\\SECOM\\EthereumReactJSTemplate\\contracts\\EDelivery.sol": {
-      "lastModificationDate": 1644594272076,
-      "contentHash": "d7d013548080b3f35035c2312e701ca8",
+    "/Users/rosapericas/Documents/react-template/contracts/EDelivery.sol": {
+      "lastModificationDate": 1715761076492,
+      "contentHash": "1f7fb4fdd6a5c434de1f4b4afa04eddd",
       "sourceName": "contracts/EDelivery.sol",
       "solcConfig": {
         "version": "0.7.4",

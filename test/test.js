@@ -1,7 +1,7 @@
 const assert = require('assert');
-const ganache = require('ganache-cli');
-const Web3 = require('web3');
-const web3 = new Web3(ganache.provider());
+const ganache = require('ganache');
+const { Web3 } = require('web3');
+const  web3 = new Web3(ganache.provider());
 
 const compiledFactory = require('../src/ethereum/build/EDeliveryFactory.json');
 const compiledDelivery = require('../src/ethereum/build/EDelivery.json');
@@ -38,8 +38,8 @@ beforeEach(async () => {
 
 describe('Certified eDelivery Contract', () => {
   it('deploys a factory and a delivery', () => {
-    assert.ok(factoryContract.address);
-    assert.ok(deliveryContract.address);
+    assert.ok(factoryContract.target);
+    assert.ok(deliveryContract.target);
   });
 
   it("message is correct", async function() {

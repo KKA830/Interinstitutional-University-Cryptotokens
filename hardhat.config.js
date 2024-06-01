@@ -82,8 +82,8 @@ module.exports = {
   },
   gasReporter: {
     currency: 'EUR',
-    coinmarketcap: '69906080-75f3-4f48-8689-268ba8b4480b',
-    enabled: process.env.GAS_REPORT ? true : true,
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+    enabled: process.env.GAS_REPORT ? true : false,
     gasPrice: 1,
     showTimeSpent: true,
   },

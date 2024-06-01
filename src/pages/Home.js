@@ -1,7 +1,8 @@
+/*
 import React, { Component } from 'react';
 import { Icon, Button, Dimmer, Loader, Segment, Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import factory from '../ethereum/factory';
+import universies from '../ethereum/universies';
 import web3 from '../ethereum/web3';
 import DeliveryRow from '../components/DeliveryRow';
 
@@ -9,57 +10,62 @@ class Home extends Component {
     state = {
         loadingPage: true,
         loading: false,
-        errorMessage: ''
+        errorMessage: '',
+        accounts: []
     };
 
     componentDidMount = async () => {
         try {
             const accounts = await web3.eth.getAccounts();
-            const senderDeliveriesCount = await factory.methods.getSenderDeliveriesCount(accounts[0]).call();
-            const receiverDeliveriesCount = await factory.methods.getReceiverDeliveriesCount(accounts[0]).call();
-
-            const senderDeliveries = await Promise.all(
-                Array(parseInt(senderDeliveriesCount))
-                  .fill()
-                  .map((delivery, index) => {
-                    return factory.methods.senderDeliveries(accounts[0], index).call();
-                  })
-              );
-
-              const receiverDeliveries = await Promise.all(
-                Array(parseInt(receiverDeliveriesCount))
-                  .fill()
-                  .map((delivery, index) => {
-                    return factory.methods.receiverDeliveries(accounts[0], index).call();
-                  })
-              );
-
-            this.setState({ 
-                senderDeliveries: senderDeliveries, 
-                receiverDeliveries: receiverDeliveries 
-            });
+            if(accounts.length !== 0){
+                const senderDeliveriesCount = await universies.methods.owner(accounts[0]).call();
+                const receiverDeliveriesCount = await universies.methods.owner(accounts[0]).call();
+                
+                const senderDeliveries = await Promise.all(
+                    Array(parseInt(senderDeliveriesCount))
+                      .fill()
+                      .map((delivery, index) => {
+                        return universies.methods.owner(accounts[0], index).call();
+                      })
+                  );
+    
+                  const receiverDeliveries = await Promise.all(
+                    Array(parseInt(receiverDeliveriesCount))
+                      .fill()
+                      .map((delivery, index) => {
+                        return universies.methods.owner(accounts[0], index).call();
+                      })
+                  );
+                this.setState({ 
+                    senderDeliveries: senderDeliveries, 
+                    receiverDeliveries: receiverDeliveries,
+                    accounts: accounts
+                });
+            }
         } finally {
             this.setState({ loadingPage: false })
         }
     }
 
     renderDeliveryRows(sent) {
-        var deliveries;
-        if (sent) {
-            deliveries = this.state.senderDeliveries;
-        } else {
-            deliveries = this.state.receiverDeliveries;
+        if(this.state.accounts.length !== 0 ){
+            var deliveries;
+            if (sent) {
+                deliveries = this.state.senderDeliveries;
+            } else {
+                deliveries = this.state.receiverDeliveries;
+            }
+            return deliveries.map((delivery, index) => {
+                return (
+                    <DeliveryRow
+                        key={index}
+                        id={index}
+                        delivery={delivery[index]}
+                        sent={sent}
+                    />
+                );
+            });
         }
-        return deliveries.map((delivery, index) => {
-            return (
-                <DeliveryRow
-                    key={index}
-                    id={index}
-                    delivery={delivery}
-                    sent={sent}
-                />
-            );
-        });
     }
 
     render() {
@@ -116,3 +122,4 @@ class Home extends Component {
 }
 
 export default Home;
+*/
