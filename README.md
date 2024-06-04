@@ -57,3 +57,14 @@ To execute Hardhat test:
 npx hardhat test
 ```
 
+### For this specific project
+
+Before compiling and deploying the smart contract, you should consider specifying an address from which you can access the webpage. If not, you won't be able to set the roles for the other users.
+
+If the address which launches the contract isn't at reach for accessing the webpage, simply change line `72` of [./contracts/UVS_updated.sol]{./contracts/UVS_updated.sol} being `ownRole[owner] = Role.AUT;` (inside the consturctor) to the following line:
+
+```solidity
+ownRole[<address to aquire AUT role>] = Role.AUT;
+```
+
+> Change `<address to aquire AUT role>` for the desired address.
