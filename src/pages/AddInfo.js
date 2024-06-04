@@ -4,15 +4,18 @@ import { Dimmer, Loader, Segment } from "semantic-ui-react";
 import instance from "../ethereum/universies";
 import { useParams, useNavigate } from "react-router-dom";
 
+// components
 import PrimaryButton from "../components/PrimaryButton";
 import FakeSecondaryTextInput from "../components/FakeSecondaryTextInput";
 
+// this page displayes the information of a specific address (resulting of the search page)
 const AddInfo = () => {
-  const { web3, loading, account } = useWeb3();
+  const { web3, loading, account, role } = useWeb3();
   const { address } = useParams();
   const [resultRole, setResultRole] = useState(null);
   const [props, setProps] = useState(null);
-  const navigate = useNavigate ();
+  const [graduated, setGraduated] = useState(false);
+  const navigate = useNavigate();
 
   const roleMapping = {
     0: "NONE",
@@ -22,10 +25,29 @@ const AddInfo = () => {
     4: "AUT",
   };
 
+  // checkbox handler
+  const handleCheckbox = () => {
+    setGraduated(!graduated);
+  };
+
+  // removes the student
+  const removeStudent = async () => {
+    try {
+      await instance.methods.RemStudent(address, graduated).send({ from: account });
+      setResultRole(null);
+      setProps(null);
+    } catch (error) {
+      console.error("Error removing student: ", error);
+    }
+  };
+
+  // shows the balance of the connected account in the specified currency
   const viewBalance = async (event) => {
     event.preventDefault();
-    navigate(`/universies/view-balance/${account}/${address}/${props.code}/${props.exchRate}`);
-  }
+    navigate(
+      `/universies/view-balance/${account}/${address}/${props.code}/${props.exchRate}`
+    );
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +71,7 @@ const AddInfo = () => {
     fetchData();
   }, [address]);
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -73,6 +96,7 @@ const AddInfo = () => {
     );
   }
 
+  // if data not loaded
   if ((!resultRole && !props) || !resultRole) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -87,6 +111,7 @@ const AddInfo = () => {
     );
   }
 
+  // based on the role of the fetched address, outputs an appropriate page
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-4xl font-bold text-center text-gray-700">
@@ -115,17 +140,41 @@ const AddInfo = () => {
             label="Rate"
             value={`1 ${props.code} = ${props.exchRate.toString()} UVS`}
           />
-          <PrimaryButton label="View My Current Balance" onClick={viewBalance}/>
+          <PrimaryButton
+            label="View My Current Balance"
+            onClick={viewBalance}
+          />
         </>
       )}
-      {resultRole === "STU" && props && (
+      {role !== "AUT" && resultRole === "STU" && props && (
         <>
           <p className="text-xl text-gray-500">Name: {props.name}</p>
-          <p className="text-xl text-gray-500">Surnames: {props.surname}</p>
+          <p className="text-xl text-gray-500">Surnames: {props.surnames}</p>
           <p className="text-xl text-gray-500">DNI/NIE: {props.id}</p>
           <p className="text-xl text-gray-500">
             Belonging to degree: {props.degreeAdd}
           </p>
+        </>
+      )}
+      {role === "AUT" && resultRole === "STU" && props && (
+        <>
+          <p className="text-xl text-gray-500">Name: {props.name}</p>
+          <p className="text-xl text-gray-500">Surnames: {props.surnames}</p>
+          <p className="text-xl text-gray-500">DNI/NIE: {props.id}</p>
+          <p className="text-xl text-gray-500">
+            Belonging to degree: {props.degreeAdd}
+          </p>
+          <PrimaryButton label="Remove Student" onClick={removeStudent} />
+          <div className="mt-2 flex">
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={graduated}
+              onChange={handleCheckbox}
+              label="is the student graduated?"
+            />
+            <p className="ml-4">Is the student graduated?</p>
+          </div>
         </>
       )}
     </div>

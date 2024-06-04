@@ -3,12 +3,14 @@ import { useWeb3 } from "../contexts/Web3Provider";
 import { Segment, Dimmer, Loader } from "semantic-ui-react";
 import instance from "../ethereum/universies";
 
+// components
 import PrimaryTextInput from "../components/PrimaryTextInput";
 import PrimaryMultiOption from "../components/PrimaryMultiOption";
 import PrimaryButton from "../components/PrimaryButton";
 
+// this page is used to assign a role to an address and construct its profile
 const AddUsr = () => {
-  const { account, role } = useWeb3();
+  const { web3, account, loading, role } = useWeb3();
   const [fRole, setFRole] = useState("STU");
   const [address, setAddress] = useState("");
   const [code, setCode] = useState("");
@@ -30,6 +32,7 @@ const AddUsr = () => {
           { value: "DEG", label: "DEG" },
         ];
 
+  // handles the submission of the form
   const handleForm = async (event) => {
     event.preventDefault();
 
@@ -61,6 +64,32 @@ const AddUsr = () => {
     }
   };
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <h2 className="text-4xl font-bold text-center text-gray-700">
+          <Segment>
+            <Dimmer active inverted>
+              <Loader inverted content="Connecting to MetaMask..." />
+            </Dimmer>
+          </Segment>
+        </h2>
+      </div>
+    );
+  }
+
+  if (!web3) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <h2 className="text-4xl font-bold text-center text-gray-700">
+          Please use a browser that supports web3
+        </h2>
+      </div>
+    );
+  }
+
+  // based on the role, outputs an appropriate page
   return (
     <div>
       {(role === "AUT" || role === "UNI") && (

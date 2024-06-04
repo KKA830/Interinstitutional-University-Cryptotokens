@@ -1,11 +1,12 @@
-// pages/HomePage.js
 import React from "react";
 import { useWeb3 } from "../contexts/Web3Provider";
 import { Button, Dimmer, Loader, Segment } from "semantic-ui-react";
 
+// this is the home page which displays information about the connected address
 const HomePage = () => {
   const { web3, account, loading, role, addProps } = useWeb3();
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -29,6 +30,8 @@ const HomePage = () => {
       </div>
     );
   }
+
+  // based on the role, outputs an appropriate page
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       {role === "STU" && (

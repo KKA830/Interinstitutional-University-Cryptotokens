@@ -4,9 +4,11 @@ import { Dimmer, Loader, Segment } from "semantic-ui-react";
 import instance from "../ethereum/universies";
 import { useParams, useNavigate } from "react-router-dom";
 
+// components
 import PrimaryButton from "../components/PrimaryButton";
 import FakeSecondaryTextInput from "../components/FakeSecondaryTextInput";
 
+// this page is designed to look up the balance of a specific currency of the connected address's wallet
 const ViewBalance = () => {
   const { web3, loading } = useWeb3();
   const { account, address, code, exchRate } = useParams();
@@ -21,9 +23,9 @@ const ViewBalance = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(`Fetching balance for address: ${account}`);
-        const data = await instance.methods.specificBalanceOf(account, address).call();
-        console.log("Data fetched:", data);
+        const data = await instance.methods
+          .specificBalanceOf(account, address)
+          .call();
         setBalance(Number(data));
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -33,6 +35,7 @@ const ViewBalance = () => {
     fetchData();
   }, [address]);
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -56,7 +59,8 @@ const ViewBalance = () => {
       </div>
     );
   }
-  
+
+  // based on the role, outputs an appropriate page
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-4xl font-bold text-center text-gray-700">
@@ -66,7 +70,7 @@ const ViewBalance = () => {
       <p className="text-xl text-gray-500">Which is equivalent to:</p>
       <FakeSecondaryTextInput
         label="Rate"
-        value={`${(balance*exchRate).toString()} UVS`}
+        value={`${(balance * exchRate).toString()} UVS`}
       />
       <PrimaryButton label="Transfer" onClick={transfer} />
     </div>

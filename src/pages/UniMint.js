@@ -3,9 +3,11 @@ import { useWeb3 } from "../contexts/Web3Provider";
 import { Dimmer, Loader, Segment } from "semantic-ui-react";
 import instance from "../ethereum/universies";
 
+// components
 import SecondaryTextInput from "../components/SecondaryTextInput";
 import PrimaryButton from "../components/PrimaryButton";
 
+// this page is designed for minting addresses
 const UniMint = () => {
   const { web3, account, loading, role } = useWeb3();
   const [address, setAddress] = useState("");
@@ -24,7 +26,6 @@ const UniMint = () => {
   const changeDstCode = async (event) => {
     const newDstCurrency = event.target.value;
     setDstCurrency(newDstCurrency);
-    console.log("New dst currency:", newDstCurrency);
 
     if (!web3.utils.isAddress(newDstCurrency)) {
       console.error("Invalid Ethereum address");
@@ -37,10 +38,8 @@ const UniMint = () => {
       const roleStr = roleMapping[role] || "UNKNOWN";
 
       if (roleStr === "DEG") {
-        console.log("Fetching DEG data...");
         const data = await instance.methods.degreeRef(newDstCurrency).call();
         setDstCode(data.code);
-        console.log("Data fetched:", data);
       } else {
         setDstCode("Destination Currency reference");
       }
@@ -50,6 +49,7 @@ const UniMint = () => {
     }
   };
 
+  // handles the submission of the form
   const handleForm = async (event) => {
     event.preventDefault();
 
@@ -62,6 +62,7 @@ const UniMint = () => {
     }
   };
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -86,6 +87,7 @@ const UniMint = () => {
     );
   }
 
+  // based on the role, outputs an appropriate page
   return (
     <>
       {(role === "AUT" || role === "UNI" || role === "DEG") && (

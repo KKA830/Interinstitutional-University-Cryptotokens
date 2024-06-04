@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
-import { useNavigate  } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import PrimaryTextInput from "../components/PrimaryTextInput"
-import PrimaryButton from "../components/PrimaryButton"
+// components
+import PrimaryTextInput from "../components/PrimaryTextInput";
+import PrimaryButton from "../components/PrimaryButton";
 
+// this page is designed to look up an address
 const Search = () => {
-    const [address, setAddress] = useState('');
-    const navigate = useNavigate ();
-  
-    const handleForm = async (event) => {
-      event.preventDefault();
-      navigate(`/universies/add-info/${address}`);
-    }
+  const [address, setAddress] = useState("");
+  const navigate = useNavigate();
 
-      return (
-        <form onSubmit={handleForm}>
-          <PrimaryTextInput title="Look Up" placeholder="Insert the address to look for" value={address} onChange={setAddress} />
-          <div className="mt-4 flex justify-center">
-            <PrimaryButton type="submit" label="Search" />
-          </div>
-        </form>
-      );    
+  // handles the submission of the form
+  const handleForm = async (event) => {
+    event.preventDefault();
+    navigate(`/universies/add-info/${address}`);
   };
 
-export default Search;
+  // outputs page
+  return (
+    <form onSubmit={handleForm}>
+      <PrimaryTextInput
+        title="Look Up"
+        placeholder="Insert the address to look for"
+        value={address}
+        onChange={setAddress}
+      />
+      <div className="mt-4 flex justify-center">
+        <PrimaryButton type="submit" label="Search" />
+      </div>
+    </form>
+  );
+};
 
+export default Search;

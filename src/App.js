@@ -8,7 +8,6 @@ import { Web3Provider } from './contexts/Web3Provider';
 
 // Pages
 import HomePage from './pages/HomePage';
-import MyAccount from './pages/MyAccount';
 import AddUsr from './pages/AddUsr';
 import UniTransfer from './pages/UniTransfer';
 import UniMint from './pages/UniMint';
@@ -29,7 +28,6 @@ const App = () => (
             <main>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path='/universies/my-account' element={<MyAccount />} />
                     <Route path='/universies/add-user' element={<AddUsr />} />
                     <Route path='/universies/uni-transfer' element={<UniTransfer />} />
                     <Route path='/universies/uni-mint' element={<UniMint />} />

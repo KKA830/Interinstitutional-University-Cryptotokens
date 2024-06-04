@@ -4,10 +4,12 @@ import { Dimmer, Loader, Segment } from "semantic-ui-react";
 import instance from "../ethereum/universies";
 import { useParams } from "react-router-dom";
 
+// components
 import PrimaryButton from "../components/PrimaryButton";
 import FakeSecondaryTextInput from "../components/FakeSecondaryTextInput";
 import SecondaryTextInput from "../components/SecondaryTextInput";
 
+// this page is designed for the AUT address to change the exchange rates of degree currencies
 const SetExRate = () => {
   const { web3, account, loading, role } = useWeb3();
   const { address } = useParams();
@@ -23,6 +25,7 @@ const SetExRate = () => {
     4: "AUT",
   };
 
+  // handles the submission of the form
   const handleForm = async (event) => {
     event.preventDefault();
 
@@ -35,24 +38,36 @@ const SetExRate = () => {
     }
   };
 
+  const handleDegree = async (event) => {
+    event.preventDefault();
+    if (props.active) {
+      try {
+        await instance.methods.DisDegree(address).send({ from: account });
+      } catch (error) {
+        console.error("Transaction failed", error);
+      }
+    } else {
+      try {
+        await instance.methods.EnDegree(address).send({ from: account });
+      } catch (error) {
+        console.error("Transaction failed", error);
+      }
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(`Fetching role for address: ${address}`);
         const fRole = await instance.methods.ownRole(address).call();
         const roleStr = roleMapping[fRole] || "UNKNOWN";
-        console.log(`Role: ${roleStr}`);
         setResultRole(roleStr);
 
         let data;
         if (roleStr === "DEG") {
-          console.log("Fetching DEG data...");
           data = await instance.methods.degreeRef(address).call();
         } else if (roleStr === "STU") {
-          console.log("Fetching STU data...");
           data = await instance.methods.studentRef(address).call();
         }
-        console.log("Data fetched:", data);
         setProps(data);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -62,6 +77,7 @@ const SetExRate = () => {
     fetchData();
   }, [address]);
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -100,6 +116,7 @@ const SetExRate = () => {
     );
   }
 
+  // based on the role, outputs an appropriate page
   return (
     <>
       {role === "AUT" && (
@@ -131,6 +148,10 @@ const SetExRate = () => {
               onChange={(e) => setNewExchangeRate(e.target.value)}
             />
             <PrimaryButton type="submit" label="Set New Exchange Rate" />
+            <PrimaryButton
+              label="Enable/Disable Currency"
+              onClick={handleDegree}
+            />
           </div>
         </form>
       )}

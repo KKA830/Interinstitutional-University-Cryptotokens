@@ -69,8 +69,7 @@ contract Universies is ERC20 {
     constructor() ERC20("Universies", "UVS") 
     {
         owner = msg.sender;
-        /* ownRole[owner] = Role.AUT; */
-         ownRole[0x7934DD7fc12B784dA060898239EB867A8e5EDb43] = Role.AUT;
+        ownRole[owner] = Role.AUT;
     }
 
     // Structs

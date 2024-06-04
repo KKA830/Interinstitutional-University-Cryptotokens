@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useWeb3 } from "../contexts/Web3Provider";
 import { Dimmer, Loader, Segment } from "semantic-ui-react";
 import instance from "../ethereum/universies";
 
-import PrimaryTextInput from "../components/PrimaryTextInput";
+// components
 import SecondaryTextInput from "../components/SecondaryTextInput";
-import SplitPrimaryTextInput from "../components/SplitPrimaryTextInput";
 import SplitSecondaryTextInput from "../components/SplitSecondaryTextInput";
 import PrimaryButton from "../components/PrimaryButton";
 import FakePrimaryTextInput from "../components/FakePrimaryTextInput";
 
+// this page is designed for transacting coins
 const UniTransfer = () => {
-  const { web3, account, loading, role } = useWeb3();
+  const { web3, account, loading } = useWeb3();
   const [address, setAddress] = useState("");
   const [srcCurrency, setSrcCurrency] = useState("");
   const [dstCurrency, setDstCurrency] = useState("");
@@ -35,7 +35,6 @@ const UniTransfer = () => {
   const changeSrcCode = async (event) => {
     const newSrcCurrency = event.target.value;
     setSrcCurrency(newSrcCurrency);
-    console.log("New src currency:", newSrcCurrency);
 
     if (!web3.utils.isAddress(newSrcCurrency)) {
       console.error("Invalid Ethereum address");
@@ -48,11 +47,9 @@ const UniTransfer = () => {
       const roleStr = roleMapping[role] || "UNKNOWN";
 
       if (roleStr === "DEG") {
-        console.log("Fetching DEG data...");
         const data = await instance.methods.degreeRef(newSrcCurrency).call();
         setSrcCode(data.code);
         setSrcRate(Number(data.exchRate));
-        console.log("Data fetched:", data);
         const balance = await instance.methods
           .specificBalanceOf(account, newSrcCurrency)
           .call();
@@ -69,7 +66,6 @@ const UniTransfer = () => {
   const changeDstCode = async (event) => {
     const newDstCurrency = event.target.value;
     setDstCurrency(newDstCurrency);
-    console.log("New dst currency:", newDstCurrency);
 
     if (!web3.utils.isAddress(newDstCurrency)) {
       console.error("Invalid Ethereum address");
@@ -82,11 +78,9 @@ const UniTransfer = () => {
       const roleStr = roleMapping[role] || "UNKNOWN";
 
       if (roleStr === "DEG") {
-        console.log("Fetching DEG data...");
         const data = await instance.methods.degreeRef(newDstCurrency).call();
         setDstCode(data.code);
         setDstRate(Number(data.exchRate));
-        console.log("Data fetched:", data);
       } else {
         setDstCode("Destination Currency reference");
       }
@@ -96,6 +90,7 @@ const UniTransfer = () => {
     }
   };
 
+  // handles the submission of the form
   const handleForm = async (event) => {
     event.preventDefault();
 
@@ -108,6 +103,7 @@ const UniTransfer = () => {
     }
   };
 
+  // the following 2 if statements check wether the account is collrectly linked with the wbsite and using a propper browser
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -152,6 +148,7 @@ const UniTransfer = () => {
     setNewSrcBalance((currentSrcBalance - newValue).toString());
   };
 
+  // outputs page
   return (
     <form onSubmit={handleForm}>
       <SecondaryTextInput
