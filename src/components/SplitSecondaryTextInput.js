@@ -23,7 +23,7 @@ const SplitSecondaryTextInput = ({ titleLeft, titleRight, placeholderLeft, place
           type="text"
           placeholder={placeholderRight}
           value={valueRight} 
-          onChange={onChangeLeft}
+          onChange={onChangeRight}
           className={`rounded-3xl border ${isErrorRight ? 'border-red-500' : 'border-black'} px-3 py-2 mt-1`}
         />
       </div>

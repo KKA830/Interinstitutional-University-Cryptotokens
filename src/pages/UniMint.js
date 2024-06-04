@@ -28,7 +28,7 @@ const UniMint = () => {
 
     if (!web3.utils.isAddress(newDstCurrency)) {
       console.error("Invalid Ethereum address");
-      setDstCode("Invalid address");
+      setDstCode("Destination Currency reference");
       return;
     }
 
