@@ -3,7 +3,7 @@ const fs = require("fs-extra"); // fs with extra functions
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const { Web3 } = require('web3');
 
-const compiledContractPath = './src/ethereum/build/UVS_updated.json';
+const compiledContractPath = './src/ethereum/build/Universies.json';
 const compiledContract = require(compiledContractPath);
 // Mnemonic from a test account and an Infura provider
 const provider = new HDWalletProvider(

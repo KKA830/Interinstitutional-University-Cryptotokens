@@ -16,7 +16,8 @@ const roleMapping = {
 export const Web3Provider = ({ children }) => {
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState(null);
-  const [role, setRole] = useState(null); // Add role state
+  const [role, setRole] = useState(null);
+  const [addProps, setAddProps] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,13 +29,22 @@ export const Web3Provider = ({ children }) => {
           const accounts = await web3Instance.eth.getAccounts();
           setWeb3(web3Instance);
           setAccount(accounts[0]);
-
           // Fetch the role from the contract and map it to its string representation
           const userRoleNum = await instance.methods.ownRole(accounts[0]).call();
           const userRole = roleMapping[userRoleNum];
 
-          console.log('User role:', userRole);
-          setRole(userRole); // Set the user's role
+          setRole(userRole);
+
+          // Fetch the code if the role is 'DEG'
+          if (userRole === 'DEG') {
+            const tempDegree = await instance.methods.degreeRef(accounts[0]).call();
+            setAddProps(tempDegree);
+          }
+          // Fetch the code if the role is 'STU'
+          else if (userRole === 'STU') {
+            const tempStudent = await instance.methods.studentRef(accounts[0]).call();
+            setAddProps(tempStudent);
+          }
 
         } catch (error) {
           console.error('User denied account access', error);
@@ -49,7 +59,7 @@ export const Web3Provider = ({ children }) => {
   }, []);
 
   return (
-    <Web3Context.Provider value={{ web3, account, role, loading }}> {/* Include role in the context */}
+    <Web3Context.Provider value={{ web3, account, role, addProps, loading }}>
       {children}
     </Web3Context.Provider>
   );

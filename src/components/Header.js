@@ -17,31 +17,31 @@ const Header = () => {
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/AddUsr'
+                to='/universies/add-user'
                 >
                 New User
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniTransfer'
+                to='/universies/uni-transfer'
                 >
                 Transfer
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniMint'
+                to='/universies/uni-mint'
                 >
                 Mint
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/SetExRate'
+                to='/universies/rates'
                 >
                 Rates
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/Search'
+                to='/universies/search'
                 >
                 Search
                 </Link>                
@@ -60,37 +60,25 @@ const Header = () => {
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/AddUsr'
+                to='/universies/add-user'
                 >
                 New User
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniTransfer'
+                to='/universies/uni-transfer'
                 >
                 Transfer
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniMint'
+                to='/universies/uni-mint'
                 >
                 Mint
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/SetExRate'
-                >
-                Rates
-                </Link>
-                <Link
-                className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/ChangeCode'
-                >
-                My Code
-                </Link>
-                <Link
-                className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/Search'
+                to='/universies/search'
                 >
                 Search
                 </Link> 
@@ -109,31 +97,25 @@ const Header = () => {
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniTransfer'
+                to='/universies/uni-transfer'
                 >
                 Transfer
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniMint'
+                to='/universies/uni-mint'
                 >
                 Mint
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/SetExRate'
-                >
-                Rates
-                </Link>
-                <Link
-                className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/ChangeCode'
+                to='/universies/change-code'
                 >
                 My Code
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/Search'
+                to='/universies/search'
                 >
                 Search
                 </Link> 
@@ -152,19 +134,13 @@ const Header = () => {
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniTransfer'
+                to='/universies/uni-transfer'
                 >
                 Transfer
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniMint'
-                >
-                Rates
-                </Link>
-                <Link
-                className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/Search'
+                to='/universies/search'
                 >
                 Search
                 </Link> 
@@ -183,19 +159,13 @@ const Header = () => {
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniTransfer'
+                to='/universies/uni-transfer'
                 >
                 Transfer
                 </Link>
                 <Link
                 className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/UniMint'
-                >
-                Rates
-                </Link>
-                <Link
-                className="bg-[#005daa] hover:bg-[#004080] text-white font-bold rounded py-2 px-4"
-                to='/universies/Search'
+                to='/universies/search'
                 >
                 Search
                 </Link> 

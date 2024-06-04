@@ -22,7 +22,7 @@ degrees and students.
 
 */
 
-contract UVS_updated is ERC20 {
+contract Universies is ERC20 {
 
     // Variables
     address public owner; // contract's owner
@@ -68,9 +68,9 @@ contract UVS_updated is ERC20 {
     // Constructor
     constructor() ERC20("Universies", "UVS") 
     {
-        // owner = msg.sender;
-        owner = 0x7934DD7fc12B784dA060898239EB867A8e5EDb43;
-        ownRole[owner] = Role.AUT;
+        owner = msg.sender;
+        /* ownRole[owner] = Role.AUT; */
+         ownRole[0x7934DD7fc12B784dA060898239EB867A8e5EDb43] = Role.AUT;
     }
 
     // Structs
@@ -196,12 +196,12 @@ contract UVS_updated is ERC20 {
         
         uint currentSrcExRate =  degreeRef[srcCurrency].exchRate;
         
-        require (specificBalanceOf[msg.sender][srcCurrency] >= amount/currentSrcExRate, "Insufficient balance");
+        require (specificBalanceOf[msg.sender][srcCurrency] >= amount, "Insufficient balance");
         // The sender has the amount
 
         uint currentDstExRate =  degreeRef[dstCurrency].exchRate;
 
-        require (amount/currentDstExRate >= 1, "There will be a total loss if those are the parameters selected");
+        require (amount*currentSrcExRate/currentDstExRate >= 1, "There will be a total loss if those are the parameters selected");
         // The receiver doesn't gain 0 coins
 
         uint srcBalance = specificBalanceOf[msg.sender][srcCurrency];
@@ -210,16 +210,16 @@ contract UVS_updated is ERC20 {
         
 
         _mint(msg.sender,(amount*currentSrcExRate));
-        srcBalance -= amount/currentSrcExRate;
+        srcBalance -= amount;
         specificBalanceOf[msg.sender][srcCurrency] = srcBalance;
         if (msg.sender != to) {
 
-            _transfer(msg.sender, to, amount);
+            _transfer(msg.sender, to, amount*currentSrcExRate);
 
         }
 
-        _burn(to, amount);
-        dstBalance += amount/currentDstExRate;
+        _burn(to, amount*currentSrcExRate);
+        dstBalance += (amount*currentSrcExRate)/currentDstExRate;
         specificBalanceOf[to][dstCurrency] = dstBalance;
 
         emit UniTransfer(msg.sender, to, amount, srcCurrency, dstCurrency, currentSrcExRate, currentDstExRate);
@@ -239,14 +239,14 @@ contract UVS_updated is ERC20 {
         uint dstBalance = specificBalanceOf[to][dstCurrency];
         uint currentDstExRate =  degreeRef[dstCurrency].exchRate;
 
-        _mint(msg.sender,amount);
+        _mint(msg.sender,amount/currentDstExRate);
         if (msg.sender != to) {
 
-            _transfer(msg.sender, to, amount);
+            _transfer(msg.sender, to, amount/currentDstExRate);
 
         }
-        _burn(to, amount);
-        dstBalance += amount/currentDstExRate;
+        _burn(to, amount/currentDstExRate);
+        dstBalance += amount;
         specificBalanceOf[to][dstCurrency] = dstBalance;
 
         emit UniMint(msg.sender, to, amount, dstCurrency, currentDstExRate);

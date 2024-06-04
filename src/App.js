@@ -12,9 +12,12 @@ import MyAccount from './pages/MyAccount';
 import AddUsr from './pages/AddUsr';
 import UniTransfer from './pages/UniTransfer';
 import UniMint from './pages/UniMint';
+import Rates from './pages/Rates';
 import SetExRate from './pages/SetExRate';
 import ChangeCode from './pages/ChangeCode';
 import Search from './pages/Search';
+import AddInfo from './pages/AddInfo';
+import ViewBalance from './pages/ViewBalance';
 
 // Components
 import Header from './components/Header';
@@ -26,13 +29,16 @@ const App = () => (
             <main>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path='/universies/MyAccount' element={<MyAccount />} />
-                    <Route path='/universies/AddUsr' element={<AddUsr />} />
-                    <Route path='/universies/UniTransfer' element={<UniTransfer />} />
-                    <Route path='/universies/UniMint' element={<UniMint />} />
-                    <Route path='/universies/SetExRate' element={<SetExRate />} />
-                    <Route path='/universies/ChangeCode' element={<ChangeCode />} />
-                    <Route path='/universies/Search' element={<Search />} />
+                    <Route path='/universies/my-account' element={<MyAccount />} />
+                    <Route path='/universies/add-user' element={<AddUsr />} />
+                    <Route path='/universies/uni-transfer' element={<UniTransfer />} />
+                    <Route path='/universies/uni-mint' element={<UniMint />} />
+                    <Route path='/universies/rates' element={<Rates />} />
+                    <Route path='/universies/set-rate/:address' element={<SetExRate />} />
+                    <Route path='/universies/change-code' element={<ChangeCode />} />
+                    <Route path='/universies/search' element={<Search />} />
+                    <Route path='/universies/add-info/:address' element={<AddInfo />} />
+                    <Route path='/universies/view-balance/:account/:address/:code/:exchRate' element={<ViewBalance />} />
                 </Routes>
             </main>
         </Container>
