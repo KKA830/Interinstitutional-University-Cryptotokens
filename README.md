@@ -68,3 +68,14 @@ ownRole[<address to aquire AUT role>] = Role.AUT;
 ```
 
 > Change `<address to aquire AUT role>` for the desired address.
+
+This project also uses [`tailwind`](https://tailwindcss.com/) for css styling. For logging purpouses, the following command can be used:
+
+```sh
+npm run tailwind:watch
+```
+
+## Execution with Docker
+
+### Requirements for Docker execution
+Requirements: [Docker](https://docs.docker.com/get-docker/).
