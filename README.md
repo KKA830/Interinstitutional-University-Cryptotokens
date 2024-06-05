@@ -75,6 +75,8 @@ This project also uses [`tailwind`](https://tailwindcss.com/) for css styling. F
 npm run tailwind:watch
 ```
 
+> __warning:__ when consulting a specific balance ([./src/pages/ViewBalance.js](./src/pages/ViewBalance.js)) the page may cause an error. In that case 2 or 3 refreshes in the browser may fix the problem.
+
 ## Execution with Docker
 
 ### Requirements for Docker execution
