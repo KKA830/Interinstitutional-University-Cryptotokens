@@ -1,3 +1,7 @@
+## Original repository
+
+[https://github.com/secomuib/HardhatReactv6JSTemplate/tree/master](https://github.com/secomuib/HardhatReactv6JSTemplate/tree/master)
+
 # EthereumReactJSTemplate
 Plantilla per compilar i desplegar un Smart Contract desenvolupat amb Solidity a Ethereum, i accedir-hi mitjançant una aplicació desenvolupada amb una aplicació web amb interfície web ReactJSv6. Es pot executar a NodeJS o Docker.
 
